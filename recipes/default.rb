@@ -49,6 +49,13 @@ search(:users) do |u|
     mode "0600"
     variables :ssh_keys => u['ssh_keys'].join("\n")
   end
+
+  (u['groups'] || []).each do |g|
+    group g do
+      members [u['id']]
+      append true
+    end
+  end
 end
 
 group "admin" do
