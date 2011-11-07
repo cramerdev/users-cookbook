@@ -71,7 +71,7 @@ group "admin" do
   append true
 end
 
-# Lock the root user
+# Lock the root user if the lock_root attribute is set. Otherwise unlock root.
 user "root" do
-  action :lock
+  action node[:users][:lock_root] ? :lock : :unlock
 end
