@@ -22,6 +22,9 @@ search(:users) do |u|
   # Move on to the next user if this one is not specified for this node
   next if u[:nodes].is_a?(Array) && !u[:nodes].include?(node.name) && !u['locked']
 
+  # Only add the user if it's roles match the ones for this node
+  next if u['roles'].is_a?(Array) && ((u['roles'] || []) & node.roles).length < 1 && !u['locked']
+
   sysadmin_group << u['id'] if (u['groups'] || []).include?('admin')
 
   home_dir = "/home/#{u['id']}"
