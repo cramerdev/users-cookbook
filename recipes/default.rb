@@ -22,7 +22,7 @@ search(:users) do |u|
   # Move on to the next user if this one is not specified for this node
   next if u[:nodes].is_a?(Array) && !u[:nodes].include?(node.name) && !u['locked']
 
-  sysadmin_group << u['id'] if u["groups"].include?("admin")
+  sysadmin_group << u['id'] if (u['groups'] || []).include?('admin')
 
   home_dir = "/home/#{u['id']}"
 
