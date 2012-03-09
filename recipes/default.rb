@@ -25,6 +25,9 @@ search(:users) do |u|
   # Only add the user if it's roles match the ones for this node
   next if u['roles'].is_a?(Array) && ((u['roles'] || []) & node.roles).length < 1 && !u['locked']
 
+  # Set defaults
+  u['ssh_keys'] ||= []
+
   sysadmin_group << u['id'] if (u['groups'] || []).include?('admin')
 
   home_dir = "/home/#{u['id']}"
