@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-default[:users][:lock_root] = true
-
+default['users']['lock_root'] = true
+default['users']['nofiles'] = 65536

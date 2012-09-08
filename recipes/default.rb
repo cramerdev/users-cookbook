@@ -81,3 +81,14 @@ end
 user "root" do
   action node[:users][:lock_root] ? :lock : :unlock
 end
+
+# Configure user limits
+if node['platform'] == 'ubuntu' && node['platform_version'] == '10.04'
+  template '/etc/pam.d/common-session' do
+    source 'pam-common-session.erb'
+  end
+
+  template '/etc/security/limits.d/users.conf' do
+    source 'user-limits.conf.erb'
+  end
+end
